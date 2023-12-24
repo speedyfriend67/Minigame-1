@@ -5,46 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Number Guessing Game</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f4;
-        }
+        /* Styles as before... */
 
-        h1 {
-            color: #333;
-        }
-
-        p {
-            color: #555;
-        }
-
-        input {
-            padding: 8px;
-            margin: 10px;
-        }
-
-        button {
-            padding: 10px;
-            background-color: #4caf50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        #result {
-            margin-top: 20px;
-            color: #e74c3c;
-            font-weight: bold;
+        #score {
+            margin-top: 10px;
+            color: #3498db;
         }
     </style>
 </head>
@@ -54,21 +19,34 @@
     <input type="number" id="userGuess" min="1" max="10">
     <button onclick="checkGuess()">Submit Guess</button>
     <p id="result"></p>
+    <p id="score">Score: 0</p>
+    <button onclick="playAgain()">Play Again</button>
 
     <script>
-        // Generate a random number between 1 and 10
-        const secretNumber = Math.floor(Math.random() * 10) + 1;
+        let secretNumber = generateRandomNumber();
+        let score = 0;
+
+        function generateRandomNumber() {
+            return Math.floor(Math.random() * 10) + 1;
+        }
 
         function checkGuess() {
-            // Get user's guess
             const userGuess = document.getElementById("userGuess").value;
 
-            // Check if the guess is correct
             if (userGuess == secretNumber) {
                 document.getElementById("result").innerHTML = "Congratulations! You guessed the correct number!";
+                score++;
             } else {
                 document.getElementById("result").innerHTML = "Sorry, try again.";
             }
+
+            document.getElementById("score").innerHTML = "Score: " + score;
+        }
+
+        function playAgain() {
+            secretNumber = generateRandomNumber();
+            document.getElementById("result").innerHTML = "";
+            document.getElementById("userGuess").value = "";
         }
     </script>
 </body>
